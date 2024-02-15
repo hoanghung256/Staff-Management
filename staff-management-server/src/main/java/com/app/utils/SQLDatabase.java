@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,6 +53,7 @@ public abstract class SQLDatabase {
     private boolean checkNString(String des) {
         for (int i = 0; i < des.length(); i++) {
             if (des.charAt(i) >= 128) {
+                // ASCII code >= 128 means special characters or accented characters
                 return true;
             }
         }
@@ -67,7 +67,7 @@ public abstract class SQLDatabase {
             statement = conn.prepareStatement(sql);
             for (int i = 0; i < values.length; i++) {
                 if (values[i] == null) {
-                    if (values[i] instanceof Date) {
+                    if (values[i] instanceof java.util.Date) {
                         statement.setNull(i + 1, Types.DATE);
                     } else {
                         statement.setNull(i + 1, Types.NULL);
@@ -84,8 +84,8 @@ public abstract class SQLDatabase {
                     } else {
                         statement.setString(i + 1, (String) values[i]);
                     }
-                } else if (values[i] instanceof Date) {
-                    statement.setString(i + 1, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS").format((Date) values[i]));
+                } else if (values[i] instanceof java.util.Date) {
+                    statement.setString(i + 1, new SimpleDateFormat("yyyy-MM-dd").format((java.util.Date) values[i]));
                 } else if (values[i] instanceof java.sql.Date) {
                     statement.setDate(i + 1, (java.sql.Date) values[i]);
                 } else {

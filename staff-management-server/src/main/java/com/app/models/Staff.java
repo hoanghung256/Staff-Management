@@ -16,6 +16,9 @@ public class Staff {
     private int anuualLeave;
     private int overtime;
 
+    public Staff() {
+    }
+    
     public Staff(int id, String name, String dob, double salaryScale, String startDate, int departmentId, int anuualLeave, int overtime) {
         this.id = id;
         this.name = name;
@@ -26,8 +29,15 @@ public class Staff {
         this.anuualLeave = anuualLeave;
         this.overtime = overtime;
     }
-
-    public Staff() {
+    
+    public Staff(String name, String dob, double salaryScale, String startDate, int departmentId, int anuualLeave, int overtime) {
+        this.name = name;
+        this.dob = dob;
+        this.salaryScale = salaryScale;
+        this.startDate = startDate;
+        this.departmentId = departmentId;
+        this.anuualLeave = anuualLeave;
+        this.overtime = overtime;
     }
 
     public int getId() {
